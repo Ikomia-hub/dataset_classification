@@ -187,10 +187,10 @@ class DatasetClassificationFactory(dataprocess.CTaskFactory):
         # relative path -> as displayed in Ikomia application process tree
         self.info.path = "Plugins/Python/Dataset"
         self.info.version = "1.0.0"
-        # self.info.icon_path = "your path to a specific icon"
+        self.info.icon_path = "icons/icon.png"
         self.info.authors = "Ikomia team"
         self.info.article = ""
-        self.info.journal = "publication journal"
+        self.info.journal = ""
         self.info.year = 2023
         self.info.license = "MIT License"
         # URL of documentation
