@@ -161,7 +161,7 @@ class DatasetClassification(core.CWorkflowTask):
 
         # Set output
         task_output.set_path(dataset_folder)
-        
+
         # Step progress bar (Ikomia Studio)
         self.emit_step_progress()
 
@@ -179,23 +179,26 @@ class DatasetClassificationFactory(dataprocess.CTaskFactory):
         dataprocess.CTaskFactory.__init__(self)
         # Set process information as string here
         self.info.name = "dataset_classification"
-        self.info.short_description = "your short description"
-        self.info.description = "your description"
+        self.info.short_description = "Load classification dataset"
+        self.info.description = "This algorithm allows to load a classification dataset " \
+                                "from a given folder. It can also split the dataset into " \
+                                "train and validation folders. Any classification training " \
+                                "algorithms from Ikomia HUB can be connected" 
         # relative path -> as displayed in Ikomia application process tree
         self.info.path = "Plugins/Python/Dataset"
         self.info.version = "1.0.0"
         # self.info.icon_path = "your path to a specific icon"
-        self.info.authors = "algorithm author"
-        self.info.article = "title of associated research article"
+        self.info.authors = "Ikomia team"
+        self.info.article = ""
         self.info.journal = "publication journal"
-        self.info.year = 2021
+        self.info.year = 2023
         self.info.license = "MIT License"
         # URL of documentation
         self.info.documentation_link = ""
         # Code source repository
         self.info.repository = ""
         # Keywords used for search
-        self.info.keywords = "your,keywords,here"
+        self.info.keywords = "dataset, classification, train"
 
     def create(self, param=None):
         # Create process object
