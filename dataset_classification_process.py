@@ -79,11 +79,13 @@ class DatasetClassification(core.CWorkflowTask):
         else:
             self.set_param_object(copy.deepcopy(param))
 
+        self.img_extension = ['.jpeg', '.jpg', '.png', '.bmp', '.tiff', '.tif', '.dib', '.jpe', '.jp2', '.webp', '.pbm', '.pgm', '.ppm', '.pxm', '.pnm', '.sr', '.ras', '.exr', '.hdr', '.pic']
 
     def get_progress_steps(self):
         # Function returning the number of progress steps for this process
         # This is handled by the main progress bar of Ikomia application
         return 1
+
 
     def run(self):
         # Core function of your process
@@ -129,7 +131,11 @@ class DatasetClassification(core.CWorkflowTask):
                 os.makedirs(val_class_folder, exist_ok=True)
 
                 # Get a list of images in the current class folder
-                images = [f.name for f in os.scandir(class_folder) if f.is_file()]
+                images = [f.name for f in os.scandir(class_folder) if f.is_file() and os.path.splitext(f.name)[1].lower() in self.img_extension]
+
+                if len(images) == 0: 
+                    print(f'NO IMAGE FOUND in {class_folder}, this might result ' \
+                          'in an error if the dataset is use to train a classification algorithm')
 
                 # Shuffle the images based on seed
                 random.seed(param.seed)
