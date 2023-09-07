@@ -73,6 +73,7 @@ Ikomia Studio offers a friendly UI with the same features as the API.
 - **output_folder** (str, *optional*): Path to the output folder where the split dataset will be saved.
 - **seed** (int, *optional*) - default '42': A seed value for the dataset slip. 
 
+**Parameters** should be in **strings format**  when added to the dictionary.
 
 ```python
 import ikomia
