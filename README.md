@@ -19,10 +19,10 @@
     </a> 
 </p>
 
-This algorithm allows to load a classification dataset from a given folder. It can also split the dataset into train and validation folders. Any classification training algorithms from Ikomia HUB can be connected
+This algorithm allows to load a classification dataset from a given folder. It can also split the dataset into train and validation folders. 
 
-[Insert illustrative image here. Image must be accessible publicly, in algorithm Github repository for example.
-<img src="images/illustration.png"  alt="Illustrative image" width="30%" height="30%">]
+Any classification training algorithms from Ikomia HUB can be connected.
+
 
 ## :rocket: Use with Ikomia API
 
@@ -36,20 +36,23 @@ pip install ikomia
 
 #### 2. Create your workflow
 
-[Change the sample image URL to fit algorithm purpose]
-
 ```python
-import ikomia
 from ikomia.dataprocess.workflow import Workflow
+from ikomia.utils import ik
 
 # Init your workflow
 wf = Workflow()
 
-# Add algorithm
-algo = wf.add_task(name="dataset_classification", auto_connect=True)
+# Add the dataset loader to load your custom data and annotations
+algo = wf.add_task(name="dataset_classification", auto_connect=False)
 
-# Run on your image  
-wf.run_on(url="example_image.png")
+algo.set_parameters({"dataset_folder":"path/to/dataset/folder"})
+
+# Add the training task to the workflow
+resnet = wf.add_task(name="train_torchvision_resnet" , auto_connect=True)
+
+# Launch your training on your data
+wf.run()
 ```
 
 ## :sunny: Use with Ikomia Studio
@@ -62,9 +65,14 @@ Ikomia Studio offers a friendly UI with the same features as the API.
 
 ## :pencil: Set algorithm parameters
 
-[Explain each algorithm parameters]
 
-[Change the sample image URL to fit algorithm purpose]
+- **dataset_folder** (str): Path to the dataset folder.
+
+- **split_dataset** (bool, *optional*): If True, your dataset will be split into train and validation folders.
+- **dataset_split_ratio** (float, *optional*) – default: '0.8': Divide the dataset into train and evaluation sets, ]0, 1[.
+- **output_folder** (str, *optional*): Path to the output folder where the split dataset will be saved.
+- **seed** (int, *optional*) - default '42': A seed value for the dataset slip. 
+
 
 ```python
 import ikomia
@@ -74,44 +82,45 @@ from ikomia.dataprocess.workflow import Workflow
 wf = Workflow()
 
 # Add algorithm
-algo = wf.add_task(name="dataset_classification", auto_connect=True)
+algo = wf.add_task(name="dataset_classification", auto_connect=False)
 
 algo.set_parameters({
-    "param1": "value1",
-    "param2": "value2",
-    ...
+    "dataset_folder":"path/to/dataset/folder",
+    "split_dataset": "True",
+    "dataset_split_ratio": "0.9",
+    "output_folder": "path/to/output/folder",
+    "seed": "25"
 })
 
-# Run on your image  
-wf.run_on(url="example_image.png")
+# Add the training task to the workflow
+resnet = wf.add_task(name="train_torchvision_resnet" , auto_connect=True)
 
+# Launch your training on your data
+wf.run()
 ```
 
-## :mag: Explore algorithm outputs
-
-Every algorithm produces specific outputs, yet they can be explored them the same way using the Ikomia API. For a more in-depth understanding of managing algorithm outputs, please refer to the [documentation](https://ikomia-dev.github.io/python-api-documentation/advanced_guide/IO_management.html).
-
-```python
-import ikomia
-from ikomia.dataprocess.workflow import Workflow
-
-# Init your workflow
-wf = Workflow()
-
-# Add algorithm
-algo = wf.add_task(name="dataset_classification", auto_connect=True)
-
-# Run on your image  
-wf.run_on(url="example_image.png")
-
-# Iterate over outputs
-for output in algo.get_outputs()
-    # Print information
-    print(output)
-    # Export it to JSON
-    output.to_json()
-```
 
 ## :fast_forward: Advanced usage 
 
-[optional]
+The dataset_classification algorithm is designed to load datasets for training classification models from Ikomia HUB.
+
+In addition to its primary purpose, this algorithm offers a convenient feature to effortlessly split the dataset into separate train and validation folders, adhering to the following organized structure:
+
+```
+Dataset_folder
+├── train
+│   ├── class-one
+│   │   ├── IMG_1.jpg
+│   │── class-two
+│   │   ├── IMG_2.jpg
+│   └── class-three
+│       ├── IMG_3.jpg
+├── val
+│   ├── class-one
+│   │   ├── IMG_4.jpg
+│   │── class-two
+│   │   ├── IMG_5.jpg
+│   └── class-three
+│       ├── IMG_6.jpg
+
+```
