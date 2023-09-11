@@ -204,7 +204,7 @@ class DatasetClassificationFactory(dataprocess.CTaskFactory):
         # Code source repository
         self.info.repository = ""
         # Keywords used for search
-        self.info.keywords = "dataset, classification, train"
+        self.info.keywords = "Dataset, Data Loader, Classification"
 
     def create(self, param=None):
         # Create process object
