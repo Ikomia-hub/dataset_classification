@@ -186,10 +186,6 @@ class DatasetClassificationFactory(dataprocess.CTaskFactory):
         # Set process information as string here
         self.info.name = "dataset_classification"
         self.info.short_description = "Load classification dataset"
-        self.info.description = "This algorithm allows to load a classification dataset " \
-                                "from a given folder. It can also split the dataset into " \
-                                "train and validation folders. Any classification training " \
-                                "algorithms from Ikomia HUB can be connected" 
         # relative path -> as displayed in Ikomia application process tree
         self.info.path = "Plugins/Python/Dataset"
         self.info.version = "1.0.0"
@@ -202,7 +198,7 @@ class DatasetClassificationFactory(dataprocess.CTaskFactory):
         # URL of documentation
         self.info.documentation_link = ""
         # Code source repository
-        self.info.repository = ""
+        self.info.repository = "https://github.com/Ikomia-hub/dataset_classification"
         # Keywords used for search
         self.info.keywords = "Dataset, Data Loader, Classification"
 
