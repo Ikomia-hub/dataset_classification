@@ -201,6 +201,8 @@ class DatasetClassificationFactory(dataprocess.CTaskFactory):
         self.info.repository = "https://github.com/Ikomia-hub/dataset_classification"
         # Keywords used for search
         self.info.keywords = "Dataset, Data Loader, Classification"
+        self.info.algo_type = core.AlgoType.DATASET
+        self.info.algo_tasks = "CLASSIFICATION"
 
     def create(self, param=None):
         # Create process object
