@@ -42,10 +42,11 @@ class DatasetClassificationWidget(core.CWorkflowTaskWidget):
         self.grid_layout = QGridLayout()
 
         self.browse_dataset_folder = pyqtutils.append_browse_file(
-                                                    self.grid_layout, label="Dataset folder",
-                                                    filter="",
-                                                    path=self.parameters.dataset_folder,
-                                                    mode=QFileDialog.Directory
+            self.grid_layout,
+            label="Dataset folder",
+            file_filter="",
+            path=self.parameters.dataset_folder,
+            mode=QFileDialog.Directory
         )
 
         # Split dataset
@@ -80,7 +81,8 @@ class DatasetClassificationWidget(core.CWorkflowTaskWidget):
 
         # Output folder
         self.browse_out_folder = pyqtutils.append_browse_file(
-            self.grid_layout, label="Output folder (optional)",
+            self.grid_layout,
+            label="Output folder (optional)",
             path=self.parameters.output_folder,
             tooltip="Select folder",
             mode=QFileDialog.Directory
