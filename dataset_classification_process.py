@@ -17,12 +17,14 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import copy
+import os
+import random
+import shutil
+from datetime import datetime
+
 from ikomia import core, dataprocess, utils
 from ikomia.dnn import dataset, datasetio
-import os
-import shutil
-import random
-from datetime import datetime
+
 
 # --------------------
 # - Class to handle the process parameters
@@ -44,7 +46,7 @@ class DatasetClassificationParam(core.CWorkflowTaskParam):
         # Set parameters values from Ikomia application
         # Parameters values are stored as string and accessible like a python dict
         self.dataset_folder = param_map["dataset_folder"]
-        self.dataset_split_ratio = param_map["dataset_split_ratio"]
+        self.dataset_split_ratio = float(param_map["dataset_split_ratio"])
         self.split_dataset = utils.strtobool(param_map["split_dataset"])
         self.output_folder = param_map["output_folder"]
         self.seed = int(param_map["seed"])
@@ -53,12 +55,13 @@ class DatasetClassificationParam(core.CWorkflowTaskParam):
     def get_values(self):
         # Send parameters values to Ikomia application
         # Create the specific dict structure (string container)
-        param_map = {}
-        param_map["dataset_folder"] = str(self.dataset_folder)
-        param_map["dataset_split_ratio"] = str(self.dataset_split_ratio)
-        param_map["split_dataset"] = str(self.split_dataset)
-        param_map["output_folder"] = str(self.output_folder)
-        param_map["seed"] = str(self.seed)
+        param_map = {
+            "dataset_folder": str(self.dataset_folder),
+            "dataset_split_ratio": str(self.dataset_split_ratio),
+            "split_dataset": str(self.split_dataset),
+            "output_folder": str(self.output_folder),
+            "seed": str(self.seed)
+        }
         return param_map
 
 
@@ -85,7 +88,6 @@ class DatasetClassification(core.CWorkflowTask):
         # Function returning the number of progress steps for this process
         # This is handled by the main progress bar of Ikomia application
         return 1
-
 
     def run(self):
         # Core function of your process
@@ -188,7 +190,7 @@ class DatasetClassificationFactory(dataprocess.CTaskFactory):
         self.info.short_description = "Load classification dataset"
         # relative path -> as displayed in Ikomia application process tree
         self.info.path = "Plugins/Python/Dataset"
-        self.info.version = "1.0.1"
+        self.info.version = "1.0.2"
         self.info.icon_path = "icons/icon.png"
         self.info.authors = "Ikomia team"
         self.info.article = ""
