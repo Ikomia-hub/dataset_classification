@@ -190,7 +190,7 @@ class DatasetClassificationFactory(dataprocess.CTaskFactory):
         self.info.short_description = "Load classification dataset"
         # relative path -> as displayed in Ikomia application process tree
         self.info.path = "Plugins/Python/Dataset"
-        self.info.version = "1.0.3"
+        self.info.version = "1.0.4"
         self.info.icon_path = "icons/icon.png"
         self.info.authors = "Ikomia team"
         self.info.article = ""
